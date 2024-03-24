@@ -7,8 +7,8 @@
   "workspaces": [
     "packages/*"
   ],
-  "dependencies": {},
   "devDependencies": {
-    "lerna": "^8.1.2"
+    "lerna": "^8.1.2",
+    "prompts": "^2.4.2"
   }
 }
