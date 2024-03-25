@@ -2,7 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "start": "lerna run start --stream"
+    "start": "node ./scripts/start.js"
   },
   "workspaces": [
     "packages/*"
