@@ -46,18 +46,26 @@
   <!-- <script type="systemjs-importmap" src="/importmap.json"></script> -->
 
   <% if (isLocal) { %>
-  <script type="systemjs-importmap">
-    {
-      "imports": {
+    <script id ="dev-import-map-overrides">
+      var script = document.createElement('script');
+      script.setAttribute('type','systemjs-importmap');
+      
+      const featureAppData = JSON.parse('<%= FEATURE_APP_DATA %>');  
+      
+      const overrides= {
         "@ventas/root-config": "//localhost:9000/ventas-root-config.js",
-        "@ventas/clients": "//localhost:9001/main.js",
-        "@ventas/invoices": "//localhost:9002/main.js",
-        "@ventas/menu": "//localhost:9003/main.js",
-        "@ventas/products": "//localhost:9004/main.js",
-        "@ventas/styleguide": "//localhost:9005/main.js"
-      }
-    }
-  </script>
+        "@ventas/styleguide":"//localhost:9005/main.js"
+      };
+      
+      Object.entries(featureAppData).forEach(([appName, portNumber])=>{
+        overrides[`@ventas/${appName}`]= `http://localhost:${portNumber}/main.js`;
+      })
+      script.innerHTML= JSON.stringify({
+        imports: overrides
+      })
+      
+      document.querySelector('#dev-import-map-overrides').after(script);
+    </script>
   <% } %>
 
   <!--
